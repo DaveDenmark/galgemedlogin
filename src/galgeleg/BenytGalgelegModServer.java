@@ -28,9 +28,9 @@ public class BenytGalgelegModServer {
     
     //menuerne
     private static void run() throws MalformedURLException, RemoteException, NotBoundException, Exception {
-       URL url = new URL("http://ubuntu4.javabog.dk:18371/galgeservice?wsdl");
-       // URL url = new URL("http://localhost:18371/galgeservice?wsdl");
-        QName qname = new QName("http://Galgeleg/", "GalgelogikService");
+      // URL url = new URL("http://ubuntu4.javabog.dk:18371/galgeservice?wsdl");
+        URL url = new URL("http://localhost:18371/galgeservice?wsdl");
+        QName qname = new QName("http://galgeleg/", "GalgelogikService");
         Service service = Service.create(url, qname);
         GalgelegI g = service.getPort(GalgelegI.class);
         
