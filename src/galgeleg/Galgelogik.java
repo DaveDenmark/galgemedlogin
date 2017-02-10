@@ -1,15 +1,25 @@
 package galgeleg;
 
+import brugerautorisation.data.Bruger;
+import brugerautorisation.transport.SOAP.Brugeradmin;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Random;
+import java.util.Scanner;
+import javax.jws.WebService;
+import javax.xml.namespace.QName;
+import javax.xml.ws.Service;
 
-public class Galgelogik {
+@WebService(endpointInterface = "galgeleg.GalgelegI")
+public class Galgelogik  {
   private ArrayList<String> muligeOrd = new ArrayList<String>();
   private String ordet;
   private ArrayList<String> brugteBogstaver = new ArrayList<String>();
@@ -19,39 +29,45 @@ public class Galgelogik {
   private boolean spilletErVundet;
   private boolean spilletErTabt;
 
-
+  
   public ArrayList<String> getBrugteBogstaver() {
     return brugteBogstaver;
   }
 
+  
   public String getSynligtOrd() {
     return synligtOrd;
   }
 
+  
   public String getOrdet() {
     return ordet;
   }
 
+  
   public int getAntalForkerteBogstaver() {
     return antalForkerteBogstaver;
   }
 
+  
   public boolean erSidsteBogstavKorrekt() {
     return sidsteBogstavVarKorrekt;
   }
 
+  
   public boolean erSpilletVundet() {
     return spilletErVundet;
   }
 
+  
   public boolean erSpilletTabt() {
     return spilletErTabt;
   }
 
+  
   public boolean erSpilletSlut() {
     return spilletErTabt || spilletErVundet;
   }
-
 
   public Galgelogik() {
     muligeOrd.add("bil");
@@ -64,7 +80,8 @@ public class Galgelogik {
     muligeOrd.add("solsort");
     nulstil();
   }
-
+  
+  
   public void nulstil() {
     brugteBogstaver.clear();
     antalForkerteBogstaver = 0;
@@ -74,8 +91,8 @@ public class Galgelogik {
     opdaterSynligtOrd();
   }
 
-
-  private void opdaterSynligtOrd() {
+  
+  public void opdaterSynligtOrd() {
     synligtOrd = "";
     spilletErVundet = true;
     for (int n = 0; n < ordet.length(); n++) {
@@ -89,6 +106,7 @@ public class Galgelogik {
     }
   }
 
+  
   public void gætBogstav(String bogstav) {
     if (bogstav.length() != 1) return;
     System.out.println("Der gættes på bogstavet: " + bogstav);
@@ -147,4 +165,22 @@ public class Galgelogik {
     System.out.println("muligeOrd = " + muligeOrd);
     nulstil();
   }
+  
+    public boolean login(String bruger, String adgangskode) throws Exception {
+        System.out.println("Du skal logge ind før, at du kan spille Galgeleg");
+       
+          URL url = new URL("http://javabog.dk:9901/brugeradmin?wsdl");
+       // URL url = new URL("http://s154280@ubuntu4.javabog.dk:18371/galgelegtjeneste?wsdl");
+        QName qname = new QName("http://galgeleg/", "GalgeImplService");
+        Service service = Service.create(url, qname);
+            Brugeradmin ba = service.getPort(Brugeradmin.class);
+            
+            try {
+        Bruger b = ba.hentBruger(bruger, adgangskode);
+    } catch (Throwable e) {
+        return false;
+    }
+        return true;
+    }
+  
 }
