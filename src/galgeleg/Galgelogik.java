@@ -171,7 +171,7 @@ public class Galgelogik  {
        
           URL url = new URL("http://javabog.dk:9901/brugeradmin?wsdl");
        // URL url = new URL("http://s154280@ubuntu4.javabog.dk:18371/galgelegtjeneste?wsdl");
-        QName qname = new QName("http://galgeleg/", "GalgeImplService");
+        QName qname = new QName("http://galgeleg/", "GalgelogikService");
         Service service = Service.create(url, qname);
             Brugeradmin ba = service.getPort(Brugeradmin.class);
             
