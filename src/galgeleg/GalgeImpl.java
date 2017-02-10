@@ -6,7 +6,7 @@
 //package galgeleg;
 //
 //import brugerautorisation.data.Bruger;
-//import brugerautorisation.transport.SOAP.Brugeradmin;
+//import brugerautorisation.transport.soap.Brugeradmin;
 //import java.net.URL;
 //import java.rmi.Naming;
 //import java.rmi.server.UnicastRemoteObject;

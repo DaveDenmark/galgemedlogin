@@ -14,7 +14,7 @@ import javax.xml.ws.Endpoint;
  * @author IamHexor
  */
 public class Server {
-		public static void main(String[] args) throws RemoteException {
+		public static void main(String[] args) throws Exception {
 		System.out.println("publicerer Galgelegtjeneste");
 		Galgelogik g = new Galgelogik();
     // Ipv6-addressen [::] svarer til Ipv4-adressen 0.0.0.0, der matcher alle maskinens netkort og 
