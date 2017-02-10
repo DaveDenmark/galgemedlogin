@@ -1,7 +1,7 @@
 package galgeleg;
 
-import brugerautorisation.data.Bruger;
-import brugerautorisation.transport.SOAP.Brugeradmin;
+import brugerautorisation.transport.soap.Bruger;
+import brugerautorisation.transport.soap.Brugeradmin;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -171,7 +171,7 @@ public class Galgelogik  {
        
           URL url = new URL("http://javabog.dk:9901/brugeradmin?wsdl");
        // URL url = new URL("http://s154280@ubuntu4.javabog.dk:18371/galgelegtjeneste?wsdl");
-        QName qname = new QName("http://galgeleg/", "GalgelogikService");
+        QName qname = new QName("http://soap.transport.brugerautorisation/", "BrugeradminImplService");
         Service service = Service.create(url, qname);
             Brugeradmin ba = service.getPort(Brugeradmin.class);
             
