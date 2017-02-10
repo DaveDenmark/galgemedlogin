@@ -28,8 +28,8 @@ public class BenytGalgelegModServer {
     
     //menuerne
     private static void run() throws MalformedURLException, RemoteException, NotBoundException, Exception {
-      // URL url = new URL("http://ubuntu4.javabog.dk:18371/galgeservice?wsdl");
-        URL url = new URL("http://localhost:18371/galgeservice?wsdl");
+       URL url = new URL("http://ubuntu4.javabog.dk:18371/galgeservice?wsdl");
+      //  URL url = new URL("http://localhost:18371/galgeservice?wsdl");
         QName qname = new QName("http://galgeleg/", "GalgelogikService");
         Service service = Service.create(url, qname);
         GalgelegI g = service.getPort(GalgelegI.class);
@@ -37,36 +37,79 @@ public class BenytGalgelegModServer {
         Scanner scan = new Scanner(System.in);
         boolean loggedIn = false;
         int choice;
+   
+        /** 
+         * CREDIT TO LASSE FOR LOGIC, THANKS
+         */
+        while (!loggedIn){
+          System.out.println("Indtast brugernavn");
+          String username = scan.next();
+          System.out.println("Indtast password");
+          String password = scan.next();
+
+          boolean login = g.login(username,password);
+
+          if (login) {
+              loggedIn = true;
+          }
+          else {
+              loggedIn = false;
+              System.out.println("Forkert brugernavn eller password. Prøv igen.");
+          }
+      }
+
+      g.nulstil();
+
+      g.logStatus();
+
+      while (!g.erSpilletSlut()) {
+          //spil.logStatus();
+          System.out.println("Ordet: "+g.getSynligtOrd());
+          System.out.println("Gæt et bogstav");
+          String input = scan.next();
+          g.gætBogstav(input);
+          g.getBrugteBogstaver();
+          g.getAntalForkerteBogstaver();
+      }
+      if (g.erSpilletVundet())
+      {
+          System.out.println("Tillykke du gættede det rigtige ord: " + g.getOrdet());
+      }
+      else
+      {
+          System.out.println("Desværre tabte du. Ordet var: "+g.getOrdet());
+      }
+  }
         
-        while(true){
-            if(loggedIn == false){
-                System.out.println("1. Log ind");
-                System.out.println("2. Afslut");
-                
-                choice = scan.nextInt();
-                switch(choice){
-                    case 1:
-                        System.out.print("Indtast dit brugernavn: ");
-                       String brugernavn = scan.next();
-                        System.out.print("Indtast din adgangskode: ");
-                       String adgangskode = scan.next();
-                        
-                        boolean login = g.login(brugernavn, adgangskode); break;
-                    case 2: break;
-                    default: break;
-                }
-            }else{
-                System.out.println("1. Nyt spil");
-                System.out.println("2. Log ud");
-                
-                choice = scan.nextInt();
-                switch(choice){
-                    case 1: spil(); ; break;
-                    case 2: loggedIn = false; break;
-                    default: break;
-                }
-            }
-        }
+//        while(true){
+//            if(!loggedIn){
+//                System.out.println("1. Log ind");
+//                System.out.println("2. Afslut");
+//                
+//                choice = scan.nextInt();
+//                switch(choice){
+//                    case 1:
+//                        System.out.print("Indtast dit brugernavn: ");
+//                       String brugernavn = scan.next();
+//                        System.out.print("Indtast din adgangskode: ");
+//                       String adgangskode = scan.next();
+//                        
+//                        boolean login = g.login(brugernavn, adgangskode); break;
+//                    case 2: break;
+//                    default: break;
+//                }
+//            }else{
+//                System.out.println("1. Nyt spil");
+//                System.out.println("2. Log ud");
+//                
+//                choice = scan.nextInt();
+//                switch(choice){
+//                    case 1: spil(); ; break;
+//                    case 2: loggedIn = false; break;
+//                    default: break;
+//                }
+//            }
+//        }
     }
     
 //    private static void login() throws MalformedURLException, RemoteException, NotBoundException {
@@ -94,41 +137,40 @@ public class BenytGalgelegModServer {
 //        }
 //    }
     
-    private static void spil() throws MalformedURLException {
-        URL url = new URL("http://localhost:18371/galgelegtjeneste?wsdl");
-        // URL url = new URL("http://s154280@ubuntu4.javabog.dk:18371/galgelegtjeneste?wsdl");
-        QName qname = new QName("http://galgeleg/", "GalgeImplService");
-        Service service = Service.create(url, qname);
-        GalgelegI g = service.getPort(GalgelegI.class);
-        
-        Scanner scan = new Scanner(System.in);
-        String gaet;
-        int liv = 7;
-        
-        System.out.println("- Spillet er startet -");
-        
-        while(!g.erSpilletSlut()){
-            System.out.println("Dit ord "+ g.getSynligtOrd());
-            System.out.println("Dine liv " + liv);
-            System.out.println("Gæt på et bogstav");
-            
-            gaet= scan.nextLine();
-            g.gætBogstav(gaet);
-            if (!g.getOrdet().contains(gaet)) {
-                System.out.println("Du gættede forkert!");
-                liv--;
-            }else{
-                System.out.println("Du gættede rigtigt");
-            }
-            
-            if(g.erSpilletTabt()){
-                System.out.println("Du har tabt");
-                System.out.println("Order var: " + g.getOrdet());
-            }else if(g.erSpilletVundet()){
-                System.out.println("Du har vundet");
-            }
-        }
-        g.nulstil();
-    }
-    
-}
+//    private static void spil() throws MalformedURLException {
+//        URL url = new URL("http://localhost:18371/galgelegtjeneste?wsdl");
+//        // URL url = new URL("http://s154280@ubuntu4.javabog.dk:18371/galgelegtjeneste?wsdl");
+//        QName qname = new QName("http://galgeleg/", "GalgeImplService");
+//        Service service = Service.create(url, qname);
+//        GalgelegI g = service.getPort(GalgelegI.class);
+//        
+//        Scanner scan = new Scanner(System.in);
+//        String gaet;
+//        int liv = 7;
+//        
+//        System.out.println("- Spillet er startet -");
+//        
+//        while(!g.erSpilletSlut()){
+//            System.out.println("Dit ord "+ g.getSynligtOrd());
+//            System.out.println("Dine liv " + liv);
+//            System.out.println("Gæt på et bogstav");
+//            
+//            gaet= scan.nextLine();
+//            g.gætBogstav(gaet);
+//            if (!g.getOrdet().contains(gaet)) {
+//                System.out.println("Du gættede forkert!");
+//                liv--;
+//            }else{
+//                System.out.println("Du gættede rigtigt");
+//            }
+//            
+//            if(g.erSpilletTabt()){
+//                System.out.println("Du har tabt");
+//                System.out.println("Order var: " + g.getOrdet());
+//            }else if(g.erSpilletVundet()){
+//                System.out.println("Du har vundet");
+//            }
+//        }
+//        g.nulstil();
+//    }
+   
