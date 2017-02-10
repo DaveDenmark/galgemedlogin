@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Galgeleg medlogin.iml" filepath="$PROJECT_DIR$/Galgeleg medlogin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/galgemedlogin.iml" filepath="$PROJECT_DIR$/galgemedlogin.iml" />
     </modules>
   </component>
 </project>
