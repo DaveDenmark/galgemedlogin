@@ -147,10 +147,11 @@ public class Galgelogik  {
   }
 
   public void hentOrdFraDr() throws Exception {
-    String data = hentUrl("http://dr.dk");
+    DRdkLeg drdkleg = new DRdkLeg();
+    String data = drdkleg.getWordsDR();
     System.out.println("data = " + data);
 
-    data = data.replaceAll("<.+?>", " ").toLowerCase().replaceAll("[^a-zæøå]", " ");
+    data = data.replaceAll("<.+?#>,:/", " ").toLowerCase().replaceAll("[^a-zæøå]", " ");
     System.out.println("data = " + data);
     muligeOrd.clear();
     muligeOrd.addAll(new HashSet<String>(Arrays.asList(data.split(" "))));
