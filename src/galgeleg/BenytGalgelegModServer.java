@@ -38,9 +38,7 @@ public class BenytGalgelegModServer {
         boolean loggedIn = false;
         int choice;
    
-        /** 
-         * CREDIT TO LASSE FOR LOGIC, THANKS
-         */
+        
         while (!loggedIn){
           System.out.println("Indtast brugernavn");
           String username = scan.next();
