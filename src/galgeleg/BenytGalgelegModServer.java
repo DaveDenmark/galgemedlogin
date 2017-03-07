@@ -61,13 +61,18 @@ public class BenytGalgelegModServer {
       g.logStatus();
 
       while (!g.erSpilletSlut()) {
-          //spil.logStatus();
+          g.logStatus();
           System.out.println("Ordet: "+g.getSynligtOrd());
           System.out.println("Gæt et bogstav");
           String input = scan.next();
           g.gætBogstav(input);
-          g.getBrugteBogstaver();
-          g.getAntalForkerteBogstaver();
+          System.out.println("Du har gættet på: " + g.getBrugteBogstaver());
+          int liv = 6 - g.getAntalForkerteBogstaver();
+          if (!g.erSpilletTabt())
+      {
+          System.out.println("Du har " + liv + " liv tilbage");
+      }
+          
       }
       if (g.erSpilletVundet())
       {
