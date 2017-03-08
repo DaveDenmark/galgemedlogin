@@ -14,7 +14,7 @@ import javax.jws.WebService;
  * @author IamHexor
  */
 @WebService
-interface GalgelegI {
+public interface GalgelegI {
   @WebMethod  public ArrayList<String> getBrugteBogstaver();
    @WebMethod public String getSynligtOrd();
    @WebMethod public String getOrdet();
@@ -28,6 +28,6 @@ interface GalgelegI {
    @WebMethod public void opdaterSynligtOrd();
    @WebMethod public void gætBogstav(String bogstav);
    @WebMethod boolean login(String bruger, String adgangskode) throws Exception;
-    
-           
+   @WebMethod public ArrayList<String> getSenesteSpil();
+   @WebMethod public void tilføjSpil(String brugernavn); 
 }

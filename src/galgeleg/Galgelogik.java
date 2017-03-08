@@ -29,7 +29,15 @@ public class Galgelogik  {
   private boolean spilletErVundet;
   private boolean spilletErTabt;
   private ArrayList<String> brugteForkerteBogstaver = new ArrayList<String>();
+  private ArrayList<String> senesteSpil = new ArrayList<>();
 
+  public ArrayList<String> getSenesteSpil() {
+      return senesteSpil;
+  }
+  
+  public void tilføjSpil(String brugernavn) {
+      senesteSpil.add(brugernavn);
+  }
   
   public ArrayList<String> getBrugteBogstaver() {
     return brugteBogstaver;

@@ -49,6 +49,7 @@ public class BenytGalgelegModServer {
 
           if (login) {
               loggedIn = true;
+              g.tilføjSpil(username);
           }
           else {
               loggedIn = false;
