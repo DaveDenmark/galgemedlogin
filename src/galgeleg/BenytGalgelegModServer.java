@@ -78,10 +78,13 @@ public class BenytGalgelegModServer {
       if (g.erSpilletVundet())
       {
           System.out.println("Tillykke du gættede det rigtige ord: " + g.getOrdet());
+          g.addWonGame();
+          
       }
       else
       {
           System.out.println("Desværre tabte du. Ordet var: "+g.getOrdet());
+          g.addLostGame();
       }
   }
         

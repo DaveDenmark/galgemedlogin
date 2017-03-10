@@ -30,6 +30,10 @@ public class Galgelogik  {
   private boolean spilletErTabt;
   private ArrayList<String> brugteForkerteBogstaver = new ArrayList<String>();
   private ArrayList<String> senesteSpil = new ArrayList<>();
+  private Brugeradmin ba;
+  private String brugerNavn;
+  private String adgangsKode;
+  
 
   public ArrayList<String> getSenesteSpil() {
       return senesteSpil;
@@ -176,19 +180,65 @@ public class Galgelogik  {
   
     public boolean login(String bruger, String adgangskode) throws Exception {
         System.out.println("Du skal logge ind før, at du kan spille Galgeleg");
-       
+      
           URL url = new URL("http://javabog.dk:9901/brugeradmin?wsdl");
        // URL url = new URL("http://s154280@ubuntu4.javabog.dk:18371/galgelegtjeneste?wsdl");
         QName qname = new QName("http://soap.transport.brugerautorisation/", "BrugeradminImplService");
         Service service = Service.create(url, qname);
-            Brugeradmin ba = service.getPort(Brugeradmin.class);
+            ba = service.getPort(Brugeradmin.class);
             
             try {
         Bruger b = ba.hentBruger(bruger, adgangskode);
+        brugerNavn = bruger;
+        adgangsKode = adgangskode;
     } catch (Throwable e) {
         return false;
     }
         return true;
     }
-  
+    
+    public void addLostGame() {
+        try {
+            if (ba.getEkstraFelt(brugerNavn, adgangsKode, "LostGames") == null) {
+                ba.setEkstraFelt(brugerNavn, adgangsKode, "LostGames", 1);
+            }
+            else {
+                ba.setEkstraFelt(brugerNavn, adgangsKode, "LostGames", getLostGames() + 1 );
+            }
+        } 
+        catch (Throwable e) {
+        }
+    }
+    
+    public void addWonGame() {
+        try {
+            if (ba.getEkstraFelt(brugerNavn, adgangsKode, "WonGames") == null) {
+                ba.setEkstraFelt(brugerNavn, adgangsKode, "WonGames", 1);
+            }
+            else {
+                ba.setEkstraFelt(brugerNavn, adgangsKode, "WonGames", getWonGames() + 1 );
+            }
+        } 
+        catch (Throwable e) {
+        }
+    }
+    
+    public int getLostGames() {
+        try {
+            return (int) ba.getEkstraFelt(brugerNavn, adgangsKode, "LostGames");
+        }
+        catch (Throwable e) {
+            return 0;
+        }
+    }
+    
+    public int getWonGames() {
+        try {
+            return (int) ba.getEkstraFelt(brugerNavn, adgangsKode, "WonGames");
+        }
+        catch (Throwable e) {
+            return 0;
+        }
+        
+    }
 }

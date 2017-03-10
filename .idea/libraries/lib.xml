@@ -1,6 +1,8 @@
 <component name="libraryTable">
-  <library name="mail">
+  <library name="lib">
     <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/javax.ws.rs-api-2.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/java-json.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/mail.jar!/" />
     </CLASSES>
     <JAVADOC />

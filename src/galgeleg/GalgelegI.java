@@ -30,4 +30,8 @@ public interface GalgelegI {
    @WebMethod boolean login(String bruger, String adgangskode) throws Exception;
    @WebMethod public ArrayList<String> getSenesteSpil();
    @WebMethod public void tilføjSpil(String brugernavn); 
+   @WebMethod public void addLostGame();
+   @WebMethod public void addWonGame();
+   @WebMethod public int getLostGames();
+   @WebMethod public int getWonGames();
 }
