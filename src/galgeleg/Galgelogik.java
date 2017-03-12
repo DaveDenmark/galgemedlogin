@@ -5,30 +5,26 @@ import brugerautorisation.transport.soap.Brugeradmin;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Random;
-import java.util.Scanner;
 import javax.jws.WebService;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
 @WebService(endpointInterface = "galgeleg.GalgelegI")
 public class Galgelogik  {
-  private ArrayList<String> muligeOrd = new ArrayList<String>();
+  private ArrayList<String> muligeOrd = new ArrayList<>();
   private String ordet;
-  private ArrayList<String> brugteBogstaver = new ArrayList<String>();
+  private ArrayList<String> brugteBogstaver = new ArrayList<>();
   private String synligtOrd;
   private int antalForkerteBogstaver;
   private boolean sidsteBogstavVarKorrekt;
   private boolean spilletErVundet;
   private boolean spilletErTabt;
-  private ArrayList<String> brugteForkerteBogstaver = new ArrayList<String>();
+  private ArrayList<String> brugteForkerteBogstaver = new ArrayList<>();
   private ArrayList<String> senesteSpil = new ArrayList<>();
   private Brugeradmin ba;
   private String brugerNavn;
@@ -179,21 +175,18 @@ public class Galgelogik  {
   }
   
     public boolean login(String bruger, String adgangskode) throws Exception {
-        System.out.println("Du skal logge ind før, at du kan spille Galgeleg");
       
-          URL url = new URL("http://javabog.dk:9901/brugeradmin?wsdl");
-       // URL url = new URL("http://s154280@ubuntu4.javabog.dk:18371/galgelegtjeneste?wsdl");
+        URL url = new URL("http://javabog.dk:9901/brugeradmin?wsdl");
         QName qname = new QName("http://soap.transport.brugerautorisation/", "BrugeradminImplService");
         Service service = Service.create(url, qname);
-            ba = service.getPort(Brugeradmin.class);
-            
+        ba = service.getPort(Brugeradmin.class);
             try {
-        Bruger b = ba.hentBruger(bruger, adgangskode);
-        brugerNavn = bruger;
-        adgangsKode = adgangskode;
-    } catch (Throwable e) {
-        return false;
-    }
+                Bruger b = ba.hentBruger(bruger, adgangskode);
+                brugerNavn = bruger;
+                adgangsKode = adgangskode;
+            } catch (Throwable e) {
+                return false;
+            }
         return true;
     }
     

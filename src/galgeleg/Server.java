@@ -17,7 +17,6 @@ public class Server {
 		public static void main(String[] args) throws Exception {
 		System.out.println("publicerer Galgelegtjeneste");
 		Galgelogik g = new Galgelogik();
-    // Ipv6-addressen [::] svarer til Ipv4-adressen 0.0.0.0, der matcher alle maskinens netkort og 
 		Endpoint.publish("http://[::]:18371/galgeservice", g);
 		System.out.println("Galgelegtjeneste publiceret.");
 	}
