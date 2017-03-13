@@ -20,7 +20,7 @@ public interface GalgelegI {
    @WebMethod public String getOrdet();
    @WebMethod public String logStatus();
    @WebMethod public int getAntalForkerteBogstaver();
-   @WebMethod public ArrayList<String> getBrugteForkerteBogstaver();
+   //@WebMethod public ArrayList<String> getBrugteForkerteBogstaver();
    @WebMethod boolean erSidsteBogstavKorrekt();
    @WebMethod public boolean erSpilletVundet();
    @WebMethod public boolean erSpilletTabt();
