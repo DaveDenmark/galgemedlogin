@@ -14,30 +14,33 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
 public class GalgeKlient {
+    
+    
     public static void main(String[] args) throws MalformedURLException, RemoteException, NotBoundException, Exception{
         run();
     }
 
     private static void run() throws MalformedURLException, RemoteException, NotBoundException, Exception {
-        URL url = new URL("http://ubuntu4.javabog.dk:18371/galgeservice?wsdl");
+        URL url = new URL("http://localhost:18371/galgeservice?wsdl");
         QName qname = new QName("http://galgeleg/", "GalgelogikService");
         Service service = Service.create(url, qname);
         GalgelegI g = service.getPort(GalgelegI.class);
         
         Scanner scan = new Scanner(System.in);
         boolean loggedIn = false;
+        String username = "", password = "";
         
         while (!loggedIn){
           System.out.println("Indtast brugernavn");
-          String username = scan.next();
+          username = scan.next();
           System.out.println("Indtast password");
-          String password = scan.next();
+          password = scan.next();
 
           boolean login = g.login(username,password);
 
           if (login) {
               loggedIn = true;
-              g.tilføjSpil(username);
+              g.startSpil(username, password);
           }
           else {
               loggedIn = false;
@@ -45,29 +48,29 @@ public class GalgeKlient {
           }
       }
 
-      g.nulstil();
+      //g.nulstil(username, password);
 
-      g.logStatus();
+      g.logStatus(username, password);
 
-      while (!g.erSpilletSlut()) {
-          g.logStatus();
-          System.out.println("Ordet: "+g.getSynligtOrd());
+      while (!g.erSpilletSlut(username, password)) {
+          g.logStatus(username, password);
+          System.out.println("Ordet: "+g.getSynligtOrd(username, password));
           System.out.println("Gæt et bogstav");
           String input = scan.next();
-          g.gætBogstav(input);
-          System.out.println("Du har gættet på: " + g.getBrugteBogstaver());
-          int liv = 6 - g.getAntalForkerteBogstaver();
-          if (!g.erSpilletTabt())
+          g.gætBogstav(input, username, password);
+          System.out.println("Du har gættet på: " + g.getBrugteBogstaver(username, password));
+          int liv = 6 - g.getAntalForkerteBogstaver(username, password);
+          if (!g.erSpilletTabt(username, password))
       {
           System.out.println("Du har " + liv + " liv tilbage");
           System.out.println(drawFigure(liv));
       }
           
       }
-      if (g.erSpilletVundet())
+      if (g.erSpilletVundet(username, password))
       {
-          System.out.println("Tillykke du gættede det rigtige ord: " + g.getOrdet());
-          g.addWonGame();
+          System.out.println("Tillykke du gættede det rigtige ord: " + g.getOrdet(username, password));
+          g.addWonGame(username, password);
           System.out.println("Vil du spille igen?");
           String svar = scan.next();
           if (svar.contains("ja")) {
@@ -81,8 +84,8 @@ public class GalgeKlient {
       else
       {
           System.out.println(drawFigure(0));
-          System.out.println("Desværre tabte du. Ordet var: "+g.getOrdet());
-          g.addLostGame();
+          System.out.println("Desværre tabte du. Ordet var: "+g.getOrdet(username, password));
+          g.addLostGame(username, password);
           System.out.println("Vil du spille igen? ja eller nej?");
           String svar = scan.next();
           if (svar.contains("ja")) {
