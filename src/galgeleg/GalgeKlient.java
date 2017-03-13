@@ -60,104 +60,35 @@ public class GalgeKlient {
           if (!g.erSpilletTabt())
       {
           System.out.println("Du har " + liv + " liv tilbage");
-          System.out.println(drawFigure(liv));
-      }    
-    }
+      }
+          
+      }
       if (g.erSpilletVundet())
       {
           System.out.println("Tillykke du gættede det rigtige ord: " + g.getOrdet());
           g.addWonGame();
+          System.out.println("Vil du spille igen?");
+          String svar = scan.next();
+          if (svar.contains("ja")) {
+              run(); 
+          }
+          if (svar.contains("nej")) {
+             System.out.println("Farvel. Se stats på på http://52.213.91.0 ");
+          }
           
       }
       else
       {
-          System.out.println(drawFigure(0));
           System.out.println("Desværre tabte du. Ordet var: "+g.getOrdet());
           g.addLostGame();
+          System.out.println("Vil du spille igen? ja eller nej?");
+          String svar = scan.next();
+          if (svar.contains("ja")) {
+              run(); 
+          }
+          if (svar.contains("nej")) {
+             System.out.println("Farvel. Se stats på http://52.213.91.0 ");
+          }
       }
   }
-    public static String drawFigure(int lives) {
-        //Jeg kom til at slettet min egen Ascii figur ved en fejl, så jeg fandt istedet noget på nettet (https://github.com/swartech/Hangman/blob/master/src/Hangman.java)
-        String image = "";
-        switch (lives) {
-            case 0:
-                image = " _____\n"
-                        + " |/  |\n"
-                        + " |   0\n"
-                        + " | --O--\n"
-                        + " |  / \\ \n"
-                        + " |\n"
-                        + " |\n"
-                        + "========\n";
-                break;
-
-            case 1:
-                image = " _____\n"
-                        + " |/  |\n"
-                        + " |   0\n"
-                        + " | --O--\n"
-                        + " |    \\ \n"
-                        + " |\n"
-                        + " |\n"
-                        + "========\n";
-                break;
-
-            case 2:
-                image = " _____\n"
-                        + " |/  |\n"
-                        + " |   0\n"
-                        + " | --O--\n"
-                        + " |\n"
-                        + " |\n"
-                        + " |\n"
-                        + "========\n";
-                break;
-
-            case 3:
-                image = " _____\n"
-                        + " |/  |\n"
-                        + " |   0\n"
-                        + " | --O\n"
-                        + " |\n"
-                        + " |\n"
-                        + " |\n"
-                        + "========\n";
-                break;
-
-            case 4:
-                image = " _____\n"
-                        + " |/  |\n"
-                        + " |   0\n"
-                        + " |   O\n"
-                        + " |\n"
-                        + " |\n"
-                        + " |\n"
-                        + "========\n";
-                break;
-
-            case 5:
-                image = " _____\n"
-                        + " |/  |\n"
-                        + " |   0\n"
-                        + " |\n"
-                        + " |\n"
-                        + " |\n"
-                        + " |\n"
-                        + "========\n";
-                break;
-
-            case 6:
-                image = " _____\n"
-                        + " |/  |\n"
-                        + " |\n"
-                        + " |\n"
-                        + " |\n"
-                        + " |\n"
-                        + " |\n"
-                        + "========\n";
-                break;
-
-        }
-        return image;
-    }
 }
