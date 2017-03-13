@@ -55,7 +55,7 @@ public class GalgeKlient {
           System.out.println("Gæt et bogstav");
           String input = scan.next();
           g.gætBogstav(input);
-          System.out.println("Du har gættet på: " + g.getBrugteBogstaver());
+          System.out.println("Du har gættet på: " + g.getBrugteForkerteBogstaver());
           int liv = 6 - g.getAntalForkerteBogstaver();
           if (!g.erSpilletTabt())
       {

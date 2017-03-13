@@ -4,13 +4,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/LarsMyrup/Documents/Workspace/galgemedlogin/src/galgeleg/Server.java</file>
-            <file>file:/Users/LarsMyrup/Documents/Workspace/galgemedlogin/src/brugerautorisation/transport/soap/Bruger.java</file>
-            <file>file:/Users/LarsMyrup/Documents/Workspace/galgemedlogin/src/brugerautorisation/transport/soap/Brugeradmin.java</file>
-            <file>file:/Users/LarsMyrup/Documents/Workspace/galgemedlogin/src/galgeleg/DRdkLeg.java</file>
-            <file>file:/Users/LarsMyrup/Documents/Workspace/galgemedlogin/src/galgeleg/GalgelegI.java</file>
-            <file>file:/Users/LarsMyrup/Documents/Workspace/galgemedlogin/src/galgeleg/Galgelogik.java</file>
-            <file>file:/Users/LarsMyrup/Documents/Workspace/galgemedlogin/src/galgeleg/BenytGalgelegModServer.java</file>
+            <file>file:/C:/Users/ID/Documents/GitHub/galgemedlogin/src/galgeleg/GalgeKlient.java</file>
+            <file>file:/C:/Users/ID/Documents/GitHub/galgemedlogin/src/galgeleg/GalgelegI.java</file>
+            <file>file:/C:/Users/ID/Documents/GitHub/galgemedlogin/src/galgeleg/Server.java</file>
         </group>
     </open-files>
 </project-private>
